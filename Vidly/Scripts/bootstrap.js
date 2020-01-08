@@ -318,7 +318,7 @@ if (typeof jQuery === 'undefined') {
     this.$indicators = this.$element.find('.carousel-indicators')
     this.options     = options
     this.paused      = null
-    this.sliding     = null
+    this.slmovieIding     = null
     this.interval    = null
     this.$active     = null
     this.$items      = null
@@ -385,10 +385,10 @@ if (typeof jQuery === 'undefined') {
 
     if (pos > (this.$items.length - 1) || pos < 0) return
 
-    if (this.sliding)       return this.$element.one('slid.bs.carousel', function () { that.to(pos) }) // yes, "slid"
+    if (this.slmovieIding)       return this.$element.one('slmovieId.bs.carousel', function () { that.to(pos) }) // yes, "slmovieId"
     if (activeIndex == pos) return this.pause().cycle()
 
-    return this.slide(pos > activeIndex ? 'next' : 'prev', this.$items.eq(pos))
+    return this.slmovieIde(pos > activeIndex ? 'next' : 'prev', this.$items.eq(pos))
   }
 
   Carousel.prototype.pause = function (e) {
@@ -405,33 +405,33 @@ if (typeof jQuery === 'undefined') {
   }
 
   Carousel.prototype.next = function () {
-    if (this.sliding) return
-    return this.slide('next')
+    if (this.slmovieIding) return
+    return this.slmovieIde('next')
   }
 
   Carousel.prototype.prev = function () {
-    if (this.sliding) return
-    return this.slide('prev')
+    if (this.slmovieIding) return
+    return this.slmovieIde('prev')
   }
 
-  Carousel.prototype.slide = function (type, next) {
+  Carousel.prototype.slmovieIde = function (type, next) {
     var $active   = this.$element.find('.item.active')
     var $next     = next || this.getItemForDirection(type, $active)
     var isCycling = this.interval
     var direction = type == 'next' ? 'left' : 'right'
     var that      = this
 
-    if ($next.hasClass('active')) return (this.sliding = false)
+    if ($next.hasClass('active')) return (this.slmovieIding = false)
 
     var relatedTarget = $next[0]
-    var slideEvent = $.Event('slide.bs.carousel', {
+    var slmovieIdeEvent = $.Event('slmovieIde.bs.carousel', {
       relatedTarget: relatedTarget,
       direction: direction
     })
-    this.$element.trigger(slideEvent)
-    if (slideEvent.isDefaultPrevented()) return
+    this.$element.trigger(slmovieIdeEvent)
+    if (slmovieIdeEvent.isDefaultPrevented()) return
 
-    this.sliding = true
+    this.slmovieIding = true
 
     isCycling && this.pause()
 
@@ -441,11 +441,11 @@ if (typeof jQuery === 'undefined') {
       $nextIndicator && $nextIndicator.addClass('active')
     }
 
-    var slidEvent = $.Event('slid.bs.carousel', { relatedTarget: relatedTarget, direction: direction }) // yes, "slid"
-    if ($.support.transition && this.$element.hasClass('slide')) {
+    var slmovieIdEvent = $.Event('slmovieId.bs.carousel', { relatedTarget: relatedTarget, direction: direction }) // yes, "slmovieId"
+    if ($.support.transition && this.$element.hasClass('slmovieIde')) {
       $next.addClass(type)
       if (typeof $next === 'object' && $next.length) {
-        $next[0].offsetWidth // force reflow
+        $next[0].offsetWmovieIdth // force reflow
       }
       $active.addClass(direction)
       $next.addClass(direction)
@@ -453,17 +453,17 @@ if (typeof jQuery === 'undefined') {
         .one('bsTransitionEnd', function () {
           $next.removeClass([type, direction].join(' ')).addClass('active')
           $active.removeClass(['active', direction].join(' '))
-          that.sliding = false
+          that.slmovieIding = false
           setTimeout(function () {
-            that.$element.trigger(slidEvent)
+            that.$element.trigger(slmovieIdEvent)
           }, 0)
         })
         .emulateTransitionEnd(Carousel.TRANSITION_DURATION)
     } else {
       $active.removeClass('active')
       $next.addClass('active')
-      this.sliding = false
-      this.$element.trigger(slidEvent)
+      this.slmovieIding = false
+      this.$element.trigger(slmovieIdEvent)
     }
 
     isCycling && this.cycle()
@@ -480,7 +480,7 @@ if (typeof jQuery === 'undefined') {
       var $this   = $(this)
       var data    = $this.data('bs.carousel')
       var options = $.extend({}, Carousel.DEFAULTS, $this.data(), typeof option == 'object' && option)
-      var action  = typeof option == 'string' ? option : options.slide
+      var action  = typeof option == 'string' ? option : options.slmovieIde
 
       if (!data) $this.data('bs.carousel', (data = new Carousel(this, options)))
       if (typeof option == 'number') data.to(option)
@@ -520,24 +520,24 @@ if (typeof jQuery === 'undefined') {
     if (!$target.hasClass('carousel')) return
 
     var options = $.extend({}, $target.data(), $this.data())
-    var slideIndex = $this.attr('data-slide-to')
-    if (slideIndex) options.interval = false
+    var slmovieIdeIndex = $this.attr('data-slmovieIde-to')
+    if (slmovieIdeIndex) options.interval = false
 
     Plugin.call($target, options)
 
-    if (slideIndex) {
-      $target.data('bs.carousel').to(slideIndex)
+    if (slmovieIdeIndex) {
+      $target.data('bs.carousel').to(slmovieIdeIndex)
     }
 
     e.preventDefault()
   }
 
   $(document)
-    .on('click.bs.carousel.data-api', '[data-slide]', clickHandler)
-    .on('click.bs.carousel.data-api', '[data-slide-to]', clickHandler)
+    .on('click.bs.carousel.data-api', '[data-slmovieIde]', clickHandler)
+    .on('click.bs.carousel.data-api', '[data-slmovieIde-to]', clickHandler)
 
   $(window).on('load', function () {
-    $('[data-ride="carousel"]').each(function () {
+    $('[data-rmovieIde="carousel"]').each(function () {
       var $carousel = $(this)
       Plugin.call($carousel, $carousel.data())
     })
@@ -564,8 +564,8 @@ if (typeof jQuery === 'undefined') {
   var Collapse = function (element, options) {
     this.$element      = $(element)
     this.options       = $.extend({}, Collapse.DEFAULTS, options)
-    this.$trigger      = $('[data-toggle="collapse"][href="#' + element.id + '"],' +
-                           '[data-toggle="collapse"][data-target="#' + element.id + '"]')
+    this.$trigger      = $('[data-toggle="collapse"][href="#' + element.movieId + '"],' +
+                           '[data-toggle="collapse"][data-target="#' + element.movieId + '"]')
     this.transitioning = null
 
     if (this.options.parent) {
@@ -586,8 +586,8 @@ if (typeof jQuery === 'undefined') {
   }
 
   Collapse.prototype.dimension = function () {
-    var hasWidth = this.$element.hasClass('width')
-    return hasWidth ? 'width' : 'height'
+    var hasWmovieIdth = this.$element.hasClass('wmovieIdth')
+    return hasWmovieIdth ? 'wmovieIdth' : 'height'
   }
 
   Collapse.prototype.show = function () {
@@ -606,7 +606,7 @@ if (typeof jQuery === 'undefined') {
     if (startEvent.isDefaultPrevented()) return
 
     if (actives && actives.length) {
-      Plugin.call(actives, 'hide')
+      Plugin.call(actives, 'hmovieIde')
       activesData || actives.data('bs.collapse', null)
     }
 
@@ -641,10 +641,10 @@ if (typeof jQuery === 'undefined') {
       .emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize])
   }
 
-  Collapse.prototype.hide = function () {
+  Collapse.prototype.hmovieIde = function () {
     if (this.transitioning || !this.$element.hasClass('in')) return
 
-    var startEvent = $.Event('hide.bs.collapse')
+    var startEvent = $.Event('hmovieIde.bs.collapse')
     this.$element.trigger(startEvent)
     if (startEvent.isDefaultPrevented()) return
 
@@ -668,7 +668,7 @@ if (typeof jQuery === 'undefined') {
       this.$element
         .removeClass('collapsing')
         .addClass('collapse')
-        .trigger('hidden.bs.collapse')
+        .trigger('hmovieIdden.bs.collapse')
     }
 
     if (!$.support.transition) return complete.call(this)
@@ -680,7 +680,7 @@ if (typeof jQuery === 'undefined') {
   }
 
   Collapse.prototype.toggle = function () {
-    this[this.$element.hasClass('in') ? 'hide' : 'show']()
+    this[this.$element.hasClass('in') ? 'hmovieIde' : 'show']()
   }
 
   Collapse.prototype.getParent = function () {
@@ -720,7 +720,7 @@ if (typeof jQuery === 'undefined') {
       var data    = $this.data('bs.collapse')
       var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
 
-      if (!data && options.toggle && /show|hide/.test(option)) options.toggle = false
+      if (!data && options.toggle && /show|hmovieIde/.test(option)) options.toggle = false
       if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
       if (typeof option == 'string') data[option]()
     })
@@ -806,12 +806,12 @@ if (typeof jQuery === 'undefined') {
 
       if (e && e.type == 'click' && /input|textarea/i.test(e.target.tagName) && $.contains($parent[0], e.target)) return
 
-      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
+      $parent.trigger(e = $.Event('hmovieIde.bs.dropdown', relatedTarget))
 
       if (e.isDefaultPrevented()) return
 
       $this.attr('aria-expanded', 'false')
-      $parent.removeClass('open').trigger($.Event('hidden.bs.dropdown', relatedTarget))
+      $parent.removeClass('open').trigger($.Event('hmovieIdden.bs.dropdown', relatedTarget))
     })
   }
 
@@ -947,7 +947,7 @@ if (typeof jQuery === 'undefined') {
     this.$backdrop = null
     this.isShown = null
     this.originalBodyPad = null
-    this.scrollbarWidth = 0
+    this.scrollbarWmovieIdth = 0
     this.ignoreBackdropClick = false
     this.fixedContent = '.navbar-fixed-top, .navbar-fixed-bottom'
 
@@ -972,7 +972,7 @@ if (typeof jQuery === 'undefined') {
   }
 
   Modal.prototype.toggle = function (_relatedTarget) {
-    return this.isShown ? this.hide() : this.show(_relatedTarget)
+    return this.isShown ? this.hmovieIde() : this.show(_relatedTarget)
   }
 
   Modal.prototype.show = function (_relatedTarget) {
@@ -992,7 +992,7 @@ if (typeof jQuery === 'undefined') {
     this.escape()
     this.resize()
 
-    this.$element.on('click.dismiss.bs.modal', '[data-dismiss="modal"]', $.proxy(this.hide, this))
+    this.$element.on('click.dismiss.bs.modal', '[data-dismiss="modal"]', $.proxy(this.hmovieIde, this))
 
     this.$dialog.on('mousedown.dismiss.bs.modal', function () {
       that.$element.one('mouseup.dismiss.bs.modal', function (e) {
@@ -1014,7 +1014,7 @@ if (typeof jQuery === 'undefined') {
       that.adjustDialog()
 
       if (transition) {
-        that.$element[0].offsetWidth // force reflow
+        that.$element[0].offsetWmovieIdth // force reflow
       }
 
       that.$element.addClass('in')
@@ -1024,7 +1024,7 @@ if (typeof jQuery === 'undefined') {
       var e = $.Event('shown.bs.modal', { relatedTarget: _relatedTarget })
 
       transition ?
-        that.$dialog // wait for modal to slide in
+        that.$dialog // wait for modal to slmovieIde in
           .one('bsTransitionEnd', function () {
             that.$element.trigger('focus').trigger(e)
           })
@@ -1033,10 +1033,10 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
-  Modal.prototype.hide = function (e) {
+  Modal.prototype.hmovieIde = function (e) {
     if (e) e.preventDefault()
 
-    e = $.Event('hide.bs.modal')
+    e = $.Event('hmovieIde.bs.modal')
 
     this.$element.trigger(e)
 
@@ -1058,9 +1058,9 @@ if (typeof jQuery === 'undefined') {
 
     $.support.transition && this.$element.hasClass('fade') ?
       this.$element
-        .one('bsTransitionEnd', $.proxy(this.hideModal, this))
+        .one('bsTransitionEnd', $.proxy(this.hmovieIdeModal, this))
         .emulateTransitionEnd(Modal.TRANSITION_DURATION) :
-      this.hideModal()
+      this.hmovieIdeModal()
   }
 
   Modal.prototype.enforceFocus = function () {
@@ -1078,7 +1078,7 @@ if (typeof jQuery === 'undefined') {
   Modal.prototype.escape = function () {
     if (this.isShown && this.options.keyboard) {
       this.$element.on('keydown.dismiss.bs.modal', $.proxy(function (e) {
-        e.which == 27 && this.hide()
+        e.which == 27 && this.hmovieIde()
       }, this))
     } else if (!this.isShown) {
       this.$element.off('keydown.dismiss.bs.modal')
@@ -1093,14 +1093,14 @@ if (typeof jQuery === 'undefined') {
     }
   }
 
-  Modal.prototype.hideModal = function () {
+  Modal.prototype.hmovieIdeModal = function () {
     var that = this
-    this.$element.hide()
+    this.$element.hmovieIde()
     this.backdrop(function () {
       that.$body.removeClass('modal-open')
       that.resetAdjustments()
       that.resetScrollbar()
-      that.$element.trigger('hidden.bs.modal')
+      that.$element.trigger('hmovieIdden.bs.modal')
     })
   }
 
@@ -1128,10 +1128,10 @@ if (typeof jQuery === 'undefined') {
         if (e.target !== e.currentTarget) return
         this.options.backdrop == 'static'
           ? this.$element[0].focus()
-          : this.hide()
+          : this.hmovieIde()
       }, this))
 
-      if (doAnimate) this.$backdrop[0].offsetWidth // force reflow
+      if (doAnimate) this.$backdrop[0].offsetWmovieIdth // force reflow
 
       this.$backdrop.addClass('in')
 
@@ -1171,8 +1171,8 @@ if (typeof jQuery === 'undefined') {
     var modalIsOverflowing = this.$element[0].scrollHeight > document.documentElement.clientHeight
 
     this.$element.css({
-      paddingLeft: !this.bodyIsOverflowing && modalIsOverflowing ? this.scrollbarWidth : '',
-      paddingRight: this.bodyIsOverflowing && !modalIsOverflowing ? this.scrollbarWidth : ''
+      paddingLeft: !this.bodyIsOverflowing && modalIsOverflowing ? this.scrollbarWmovieIdth : '',
+      paddingRight: this.bodyIsOverflowing && !modalIsOverflowing ? this.scrollbarWmovieIdth : ''
     })
   }
 
@@ -1184,27 +1184,27 @@ if (typeof jQuery === 'undefined') {
   }
 
   Modal.prototype.checkScrollbar = function () {
-    var fullWindowWidth = window.innerWidth
-    if (!fullWindowWidth) { // workaround for missing window.innerWidth in IE8
+    var fullWindowWmovieIdth = window.innerWmovieIdth
+    if (!fullWindowWmovieIdth) { // workaround for missing window.innerWmovieIdth in IE8
       var documentElementRect = document.documentElement.getBoundingClientRect()
-      fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left)
+      fullWindowWmovieIdth = documentElementRect.right - Math.abs(documentElementRect.left)
     }
-    this.bodyIsOverflowing = document.body.clientWidth < fullWindowWidth
-    this.scrollbarWidth = this.measureScrollbar()
+    this.bodyIsOverflowing = document.body.clientWmovieIdth < fullWindowWmovieIdth
+    this.scrollbarWmovieIdth = this.measureScrollbar()
   }
 
   Modal.prototype.setScrollbar = function () {
     var bodyPad = parseInt((this.$body.css('padding-right') || 0), 10)
     this.originalBodyPad = document.body.style.paddingRight || ''
-    var scrollbarWidth = this.scrollbarWidth
+    var scrollbarWmovieIdth = this.scrollbarWmovieIdth
     if (this.bodyIsOverflowing) {
-      this.$body.css('padding-right', bodyPad + scrollbarWidth)
+      this.$body.css('padding-right', bodyPad + scrollbarWmovieIdth)
       $(this.fixedContent).each(function (index, element) {
         var actualPadding = element.style.paddingRight
         var calculatedPadding = $(element).css('padding-right')
         $(element)
           .data('padding-right', actualPadding)
-          .css('padding-right', parseFloat(calculatedPadding) + scrollbarWidth + 'px')
+          .css('padding-right', parseFloat(calculatedPadding) + scrollbarWmovieIdth + 'px')
       })
     }
   }
@@ -1222,9 +1222,9 @@ if (typeof jQuery === 'undefined') {
     var scrollDiv = document.createElement('div')
     scrollDiv.className = 'modal-scrollbar-measure'
     this.$body.append(scrollDiv)
-    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth
+    var scrollbarWmovieIdth = scrollDiv.offsetWmovieIdth - scrollDiv.clientWmovieIdth
     this.$body[0].removeChild(scrollDiv)
-    return scrollbarWidth
+    return scrollbarWmovieIdth
   }
 
 
@@ -1274,7 +1274,7 @@ if (typeof jQuery === 'undefined') {
 
     $target.one('show.bs.modal', function (showEvent) {
       if (showEvent.isDefaultPrevented()) return // only register focus restorer if modal will actually get shown
-      $target.one('hidden.bs.modal', function () {
+      $target.one('hmovieIdden.bs.modal', function () {
         $this.is(':visible') && $this.trigger('focus')
       })
     })
@@ -1312,7 +1312,7 @@ if (typeof jQuery === 'undefined') {
 
   var DefaultWhitelist = {
     // Global attributes allowed on any supplied element below.
-    '*': ['class', 'dir', 'id', 'lang', 'role', ARIA_ATTRIBUTE_PATTERN],
+    '*': ['class', 'dir', 'movieId', 'lang', 'role', ARIA_ATTRIBUTE_PATTERN],
     a: ['target', 'href', 'title', 'rel'],
     area: [],
     b: [],
@@ -1329,7 +1329,7 @@ if (typeof jQuery === 'undefined') {
     h5: [],
     h6: [],
     i: [],
-    img: ['src', 'alt', 'title', 'width', 'height'],
+    img: ['src', 'alt', 'title', 'wmovieIdth', 'height'],
     li: [],
     ol: [],
     p: [],
@@ -1352,11 +1352,11 @@ if (typeof jQuery === 'undefined') {
   var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi
 
   /**
-   * A pattern that matches safe data URLs. Only matches image, video and audio types.
+   * A pattern that matches safe data URLs. Only matches image, vmovieIdeo and audio types.
    *
    * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
    */
-  var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+/]+=*$/i
+  var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|vmovieIdeo\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+/]+=*$/i
 
   function allowedAttribute(attr, allowedAttributeList) {
     var attrName = attr.nodeName.toLowerCase()
@@ -1373,7 +1373,7 @@ if (typeof jQuery === 'undefined') {
       return value instanceof RegExp
     })
 
-    // Check if a regular expression validates the attribute.
+    // Check if a regular expression valmovieIdates the attribute.
     for (var i = 0, l = regExp.length; i < l; i++) {
       if (attrName.match(regExp[i])) {
         return true
@@ -1515,7 +1515,7 @@ if (typeof jQuery === 'undefined') {
     if (options.delay && typeof options.delay == 'number') {
       options.delay = {
         show: options.delay,
-        hide: options.delay
+        hmovieIde: options.delay
       }
     }
 
@@ -1593,11 +1593,11 @@ if (typeof jQuery === 'undefined') {
 
     self.hoverState = 'out'
 
-    if (!self.options.delay || !self.options.delay.hide) return self.hide()
+    if (!self.options.delay || !self.options.delay.hmovieIde) return self.hmovieIde()
 
     self.timeout = setTimeout(function () {
-      if (self.hoverState == 'out') self.hide()
-    }, self.options.delay.hide)
+      if (self.hoverState == 'out') self.hmovieIde()
+    }, self.options.delay.hmovieIde)
   }
 
   Tooltip.prototype.show = function () {
@@ -1612,11 +1612,11 @@ if (typeof jQuery === 'undefined') {
 
       var $tip = this.tip()
 
-      var tipId = this.getUID(this.type)
+      var tipmovieId = this.getUmovieId(this.type)
 
       this.setContent()
-      $tip.attr('id', tipId)
-      this.$element.attr('aria-describedby', tipId)
+      $tip.attr('movieId', tipmovieId)
+      this.$element.attr('aria-describedby', tipmovieId)
 
       if (this.options.animation) $tip.addClass('fade')
 
@@ -1638,7 +1638,7 @@ if (typeof jQuery === 'undefined') {
       this.$element.trigger('inserted.bs.' + this.type)
 
       var pos          = this.getPosition()
-      var actualWidth  = $tip[0].offsetWidth
+      var actualWmovieIdth  = $tip[0].offsetWmovieIdth
       var actualHeight = $tip[0].offsetHeight
 
       if (autoPlace) {
@@ -1647,8 +1647,8 @@ if (typeof jQuery === 'undefined') {
 
         placement = placement == 'bottom' && pos.bottom + actualHeight > viewportDim.bottom ? 'top'    :
                     placement == 'top'    && pos.top    - actualHeight < viewportDim.top    ? 'bottom' :
-                    placement == 'right'  && pos.right  + actualWidth  > viewportDim.width  ? 'left'   :
-                    placement == 'left'   && pos.left   - actualWidth  < viewportDim.left   ? 'right'  :
+                    placement == 'right'  && pos.right  + actualWmovieIdth  > viewportDim.wmovieIdth  ? 'left'   :
+                    placement == 'left'   && pos.left   - actualWmovieIdth  < viewportDim.left   ? 'right'  :
                     placement
 
         $tip
@@ -1656,7 +1656,7 @@ if (typeof jQuery === 'undefined') {
           .addClass(placement)
       }
 
-      var calculatedOffset = this.getCalculatedOffset(placement, pos, actualWidth, actualHeight)
+      var calculatedOffset = this.getCalculatedOffset(placement, pos, actualWmovieIdth, actualHeight)
 
       this.applyPlacement(calculatedOffset, placement)
 
@@ -1678,7 +1678,7 @@ if (typeof jQuery === 'undefined') {
 
   Tooltip.prototype.applyPlacement = function (offset, placement) {
     var $tip   = this.tip()
-    var width  = $tip[0].offsetWidth
+    var wmovieIdth  = $tip[0].offsetWmovieIdth
     var height = $tip[0].offsetHeight
 
     // manually read margins because getBoundingClientRect includes difference
@@ -1706,21 +1706,21 @@ if (typeof jQuery === 'undefined') {
     $tip.addClass('in')
 
     // check to see if placing tip in new offset caused the tip to resize itself
-    var actualWidth  = $tip[0].offsetWidth
+    var actualWmovieIdth  = $tip[0].offsetWmovieIdth
     var actualHeight = $tip[0].offsetHeight
 
     if (placement == 'top' && actualHeight != height) {
       offset.top = offset.top + height - actualHeight
     }
 
-    var delta = this.getViewportAdjustedDelta(placement, offset, actualWidth, actualHeight)
+    var delta = this.getViewportAdjustedDelta(placement, offset, actualWmovieIdth, actualHeight)
 
     if (delta.left) offset.left += delta.left
     else offset.top += delta.top
 
     var isVertical          = /top|bottom/.test(placement)
-    var arrowDelta          = isVertical ? delta.left * 2 - width + actualWidth : delta.top * 2 - height + actualHeight
-    var arrowOffsetPosition = isVertical ? 'offsetWidth' : 'offsetHeight'
+    var arrowDelta          = isVertical ? delta.left * 2 - wmovieIdth + actualWmovieIdth : delta.top * 2 - height + actualHeight
+    var arrowOffsetPosition = isVertical ? 'offsetWmovieIdth' : 'offsetHeight'
 
     $tip.offset(offset)
     this.replaceArrow(arrowDelta, $tip[0][arrowOffsetPosition], isVertical)
@@ -1749,17 +1749,17 @@ if (typeof jQuery === 'undefined') {
     $tip.removeClass('fade in top bottom left right')
   }
 
-  Tooltip.prototype.hide = function (callback) {
+  Tooltip.prototype.hmovieIde = function (callback) {
     var that = this
     var $tip = $(this.$tip)
-    var e    = $.Event('hide.bs.' + this.type)
+    var e    = $.Event('hmovieIde.bs.' + this.type)
 
     function complete() {
       if (that.hoverState != 'in') $tip.detach()
       if (that.$element) { // TODO: Check whether guarding this code with this `if` is really necessary.
         that.$element
           .removeAttr('aria-describedby')
-          .trigger('hidden.bs.' + that.type)
+          .trigger('hmovieIdden.bs.' + that.type)
       }
       callback && callback()
     }
@@ -1799,29 +1799,29 @@ if (typeof jQuery === 'undefined') {
     var isBody = el.tagName == 'BODY'
 
     var elRect    = el.getBoundingClientRect()
-    if (elRect.width == null) {
-      // width and height are missing in IE8, so compute them manually; see https://github.com/twbs/bootstrap/issues/14093
-      elRect = $.extend({}, elRect, { width: elRect.right - elRect.left, height: elRect.bottom - elRect.top })
+    if (elRect.wmovieIdth == null) {
+      // wmovieIdth and height are missing in IE8, so compute them manually; see https://github.com/twbs/bootstrap/issues/14093
+      elRect = $.extend({}, elRect, { wmovieIdth: elRect.right - elRect.left, height: elRect.bottom - elRect.top })
     }
     var isSvg = window.SVGElement && el instanceof window.SVGElement
-    // Avoid using $.offset() on SVGs since it gives incorrect results in jQuery 3.
+    // AvomovieId using $.offset() on SVGs since it gives incorrect results in jQuery 3.
     // See https://github.com/twbs/bootstrap/issues/20280
     var elOffset  = isBody ? { top: 0, left: 0 } : (isSvg ? null : $element.offset())
     var scroll    = { scroll: isBody ? document.documentElement.scrollTop || document.body.scrollTop : $element.scrollTop() }
-    var outerDims = isBody ? { width: $(window).width(), height: $(window).height() } : null
+    var outerDims = isBody ? { wmovieIdth: $(window).wmovieIdth(), height: $(window).height() } : null
 
     return $.extend({}, elRect, scroll, outerDims, elOffset)
   }
 
-  Tooltip.prototype.getCalculatedOffset = function (placement, pos, actualWidth, actualHeight) {
-    return placement == 'bottom' ? { top: pos.top + pos.height,   left: pos.left + pos.width / 2 - actualWidth / 2 } :
-           placement == 'top'    ? { top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2 } :
-           placement == 'left'   ? { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth } :
-        /* placement == 'right' */ { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width }
+  Tooltip.prototype.getCalculatedOffset = function (placement, pos, actualWmovieIdth, actualHeight) {
+    return placement == 'bottom' ? { top: pos.top + pos.height,   left: pos.left + pos.wmovieIdth / 2 - actualWmovieIdth / 2 } :
+           placement == 'top'    ? { top: pos.top - actualHeight, left: pos.left + pos.wmovieIdth / 2 - actualWmovieIdth / 2 } :
+           placement == 'left'   ? { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWmovieIdth } :
+        /* placement == 'right' */ { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.wmovieIdth }
 
   }
 
-  Tooltip.prototype.getViewportAdjustedDelta = function (placement, pos, actualWidth, actualHeight) {
+  Tooltip.prototype.getViewportAdjustedDelta = function (placement, pos, actualWmovieIdth, actualHeight) {
     var delta = { top: 0, left: 0 }
     if (!this.$viewport) return delta
 
@@ -1838,11 +1838,11 @@ if (typeof jQuery === 'undefined') {
       }
     } else {
       var leftEdgeOffset  = pos.left - viewportPadding
-      var rightEdgeOffset = pos.left + viewportPadding + actualWidth
+      var rightEdgeOffset = pos.left + viewportPadding + actualWmovieIdth
       if (leftEdgeOffset < viewportDimensions.left) { // left overflow
         delta.left = viewportDimensions.left - leftEdgeOffset
       } else if (rightEdgeOffset > viewportDimensions.right) { // right overflow
-        delta.left = viewportDimensions.left + viewportDimensions.width - rightEdgeOffset
+        delta.left = viewportDimensions.left + viewportDimensions.wmovieIdth - rightEdgeOffset
       }
     }
 
@@ -1860,9 +1860,9 @@ if (typeof jQuery === 'undefined') {
     return title
   }
 
-  Tooltip.prototype.getUID = function (prefix) {
+  Tooltip.prototype.getUmovieId = function (prefix) {
     do prefix += ~~(Math.random() * 1000000)
-    while (document.getElementById(prefix))
+    while (document.getElementBymovieId(prefix))
     return prefix
   }
 
@@ -1914,7 +1914,7 @@ if (typeof jQuery === 'undefined') {
   Tooltip.prototype.destroy = function () {
     var that = this
     clearTimeout(this.timeout)
-    this.hide(function () {
+    this.hmovieIde(function () {
       that.$element.off('.' + that.type).removeData('bs.' + that.type)
       if (that.$tip) {
         that.$tip.detach()
@@ -1939,7 +1939,7 @@ if (typeof jQuery === 'undefined') {
       var data    = $this.data('bs.tooltip')
       var options = typeof option == 'object' && option
 
-      if (!data && /destroy|hide/.test(option)) return
+      if (!data && /destroy|hmovieIde/.test(option)) return
       if (!data) $this.data('bs.tooltip', (data = new Tooltip(this, options)))
       if (typeof option == 'string') data[option]()
     })
@@ -2030,9 +2030,9 @@ if (typeof jQuery === 'undefined') {
 
     $tip.removeClass('fade top bottom left right in')
 
-    // IE8 doesn't accept hiding via the `:empty` pseudo selector, we have to do
+    // IE8 doesn't accept hmovieIding via the `:empty` pseudo selector, we have to do
     // this manually by checking the contents.
-    if (!$tip.find('.popover-title').html()) $tip.find('.popover-title').hide()
+    if (!$tip.find('.popover-title').html()) $tip.find('.popover-title').hmovieIde()
   }
 
   Popover.prototype.hasContent = function () {
@@ -2063,7 +2063,7 @@ if (typeof jQuery === 'undefined') {
       var data    = $this.data('bs.popover')
       var options = typeof option == 'object' && option
 
-      if (!data && /destroy|hide/.test(option)) return
+      if (!data && /destroy|hmovieIde/.test(option)) return
       if (!data) $this.data('bs.popover', (data = new Popover(this, options)))
       if (typeof option == 'string') data[option]()
     })
@@ -2296,24 +2296,24 @@ if (typeof jQuery === 'undefined') {
     if ($this.parent('li').hasClass('active')) return
 
     var $previous = $ul.find('.active:last a')
-    var hideEvent = $.Event('hide.bs.tab', {
+    var hmovieIdeEvent = $.Event('hmovieIde.bs.tab', {
       relatedTarget: $this[0]
     })
     var showEvent = $.Event('show.bs.tab', {
       relatedTarget: $previous[0]
     })
 
-    $previous.trigger(hideEvent)
+    $previous.trigger(hmovieIdeEvent)
     $this.trigger(showEvent)
 
-    if (showEvent.isDefaultPrevented() || hideEvent.isDefaultPrevented()) return
+    if (showEvent.isDefaultPrevented() || hmovieIdeEvent.isDefaultPrevented()) return
 
     var $target = $(document).find(selector)
 
     this.activate($this.closest('li'), $ul)
     this.activate($target, $target.parent(), function () {
       $previous.trigger({
-        type: 'hidden.bs.tab',
+        type: 'hmovieIdden.bs.tab',
         relatedTarget: $this[0]
       })
       $this.trigger({
@@ -2344,7 +2344,7 @@ if (typeof jQuery === 'undefined') {
         .attr('aria-expanded', true)
 
       if (transition) {
-        element[0].offsetWidth // reflow for transition
+        element[0].offsetWmovieIdth // reflow for transition
         element.addClass('in')
       } else {
         element.removeClass('fade')
@@ -2468,11 +2468,11 @@ if (typeof jQuery === 'undefined') {
     }
 
     var initializing   = this.affixed == null
-    var colliderTop    = initializing ? scrollTop : position.top
-    var colliderHeight = initializing ? targetHeight : height
+    var collmovieIderTop    = initializing ? scrollTop : position.top
+    var collmovieIderHeight = initializing ? targetHeight : height
 
     if (offsetTop != null && scrollTop <= offsetTop) return 'top'
-    if (offsetBottom != null && (colliderTop + colliderHeight >= scrollHeight - offsetBottom)) return 'bottom'
+    if (offsetBottom != null && (collmovieIderTop + collmovieIderHeight >= scrollHeight - offsetBottom)) return 'bottom'
 
     return false
   }

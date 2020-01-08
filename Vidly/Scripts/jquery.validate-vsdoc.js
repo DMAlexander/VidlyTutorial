@@ -1,6 +1,6 @@
 ﻿/*
 * This file has been commented to support Visual Studio Intellisense.
-* You should not use this file at runtime inside the browser--it is only
+* You should not use this file at runtime insmovieIde the browser--it is only
 * intended to be used only for design-time IntelliSense.  Please use the
 * standard jQuery library for all production use.
 *
@@ -11,12 +11,12 @@
 * Note: While Microsoft is not the author of this file, Microsoft is
 * offering you a license subject to the terms of the Microsoft Software
 * License Terms for Microsoft ASP.NET Model View Controller 3.
-* Microsoft reserves all other rights. The notices below are provided
+* Microsoft reserves all other rights. The notices below are provmovieIded
 * for informational purposes only and are not the license terms under
 * which Microsoft distributed this file.
 *
-* jQuery Validation Plugin - v1.17.0 - 12/5/2016
-* https://github.com/jzaefferer/jquery-validation
+* jQuery ValmovieIdation Plugin - v1.17.0 - 12/5/2016
+* https://github.com/jzaefferer/jquery-valmovieIdation
 * Copyright (c) 2013 Jörn Zaefferer; Licensed MIT
 *
 */
@@ -24,106 +24,106 @@
 (function($) {
 
 $.extend($.fn, {
-	// http://docs.jquery.com/Plugins/Validation/validate
-	validate: function( options ) {
+	// http://docs.jquery.com/Plugins/ValmovieIdation/valmovieIdate
+	valmovieIdate: function( options ) {
 		/// <summary>
-		/// Validates the selected form. This method sets up event handlers for submit, focus,
-		/// keyup, blur and click to trigger validation of the entire form or individual
+		/// ValmovieIdates the selected form. This method sets up event handlers for submit, focus,
+		/// keyup, blur and click to trigger valmovieIdation of the entire form or indivmovieIdual
 		/// elements. Each one can be disabled, see the onxxx options (onsubmit, onfocusout,
-		/// onkeyup, onclick). focusInvalid focuses elements when submitting a invalid form.
+		/// onkeyup, onclick). focusInvalmovieId focuses elements when submitting a invalmovieId form.
 		/// </summary>
 		/// <param name="options" type="Object">
-		/// A set of key/value pairs that configure the validate. All options are optional.
+		/// A set of key/value pairs that configure the valmovieIdate. All options are optional.
 		/// </param>
 
 		// if nothing is selected, return nothing; can't chain anyway
 		if (!this.length) {
-			options && options.debug && window.console && console.warn( "nothing selected, can't validate, returning nothing" );
+			options && options.debug && window.console && console.warn( "nothing selected, can't valmovieIdate, returning nothing" );
 			return;
 		}
 
-		// check if a validator for this form was already created
-		var validator = $.data(this[0], 'validator');
-		if ( validator ) {
-			return validator;
+		// check if a valmovieIdator for this form was already created
+		var valmovieIdator = $.data(this[0], 'valmovieIdator');
+		if ( valmovieIdator ) {
+			return valmovieIdator;
 		}
 		
-		validator = new $.validator( options, this[0] );
-		$.data(this[0], 'validator', validator); 
+		valmovieIdator = new $.valmovieIdator( options, this[0] );
+		$.data(this[0], 'valmovieIdator', valmovieIdator); 
 		
-		if ( validator.settings.onsubmit ) {
+		if ( valmovieIdator.settings.onsubmit ) {
 		
-			// allow suppresing validation by adding a cancel class to the submit button
+			// allow suppresing valmovieIdation by adding a cancel class to the submit button
 			this.find("input, button").filter(".cancel").click(function() {
-				validator.cancelSubmit = true;
+				valmovieIdator.cancelSubmit = true;
 			});
 			
 			// when a submitHandler is used, capture the submitting button
-			if (validator.settings.submitHandler) {
+			if (valmovieIdator.settings.submitHandler) {
 				this.find("input, button").filter(":submit").click(function() {
-					validator.submitButton = this;
+					valmovieIdator.submitButton = this;
 				});
 			}
 		
-			// validate the form on submit
+			// valmovieIdate the form on submit
 			this.submit( function( event ) {
-				if ( validator.settings.debug )
+				if ( valmovieIdator.settings.debug )
 					// prevent form submit to be able to see console output
 					event.preventDefault();
 					
 				function handle() {
-					if ( validator.settings.submitHandler ) {
-						if (validator.submitButton) {
-							// insert a hidden input as a replacement for the missing submit button
-							var hidden = $("<input type='hidden'/>").attr("name", validator.submitButton.name).val(validator.submitButton.value).appendTo(validator.currentForm);
+					if ( valmovieIdator.settings.submitHandler ) {
+						if (valmovieIdator.submitButton) {
+							// insert a hmovieIdden input as a replacement for the missing submit button
+							var hmovieIdden = $("<input type='hmovieIdden'/>").attr("name", valmovieIdator.submitButton.name).val(valmovieIdator.submitButton.value).appendTo(valmovieIdator.currentForm);
 						}
-						validator.settings.submitHandler.call( validator, validator.currentForm );
-						if (validator.submitButton) {
-							// and clean up afterwards; thanks to no-block-scope, hidden can be referenced
-							hidden.remove();
+						valmovieIdator.settings.submitHandler.call( valmovieIdator, valmovieIdator.currentForm );
+						if (valmovieIdator.submitButton) {
+							// and clean up afterwards; thanks to no-block-scope, hmovieIdden can be referenced
+							hmovieIdden.remove();
 						}
 						return false;
 					}
 					return true;
 				}
 					
-				// prevent submit for invalid forms or custom submit handlers
-				if ( validator.cancelSubmit ) {
-					validator.cancelSubmit = false;
+				// prevent submit for invalmovieId forms or custom submit handlers
+				if ( valmovieIdator.cancelSubmit ) {
+					valmovieIdator.cancelSubmit = false;
 					return handle();
 				}
-				if ( validator.form() ) {
-					if ( validator.pendingRequest ) {
-						validator.formSubmitted = true;
+				if ( valmovieIdator.form() ) {
+					if ( valmovieIdator.pendingRequest ) {
+						valmovieIdator.formSubmitted = true;
 						return false;
 					}
 					return handle();
 				} else {
-					validator.focusInvalid();
+					valmovieIdator.focusInvalmovieId();
 					return false;
 				}
 			});
 		}
 		
-		return validator;
+		return valmovieIdator;
 	},
-	// http://docs.jquery.com/Plugins/Validation/valid
-	valid: function() {
+	// http://docs.jquery.com/Plugins/ValmovieIdation/valmovieId
+	valmovieId: function() {
 		/// <summary>
-		/// Checks if the selected form is valid or if all selected elements are valid.
-		/// validate() needs to be called on the form before checking it using this method.
+		/// Checks if the selected form is valmovieId or if all selected elements are valmovieId.
+		/// valmovieIdate() needs to be called on the form before checking it using this method.
 		/// </summary>
 		/// <returns type="Boolean" />
 
         if ( $(this[0]).is('form')) {
-            return this.validate().form();
+            return this.valmovieIdate().form();
         } else {
-            var valid = true;
-            var validator = $(this[0].form).validate();
+            var valmovieId = true;
+            var valmovieIdator = $(this[0].form).valmovieIdate();
             this.each(function() {
-				valid &= validator.element(this);
+				valmovieId &= valmovieIdator.element(this);
             });
-            return valid;
+            return valmovieId;
         }
     },
 	// attributes: space seperated list of attributes to retrieve and remove
@@ -143,10 +143,10 @@ $.extend($.fn, {
 		});
 		return result;
 	},
-	// http://docs.jquery.com/Plugins/Validation/rules
+	// http://docs.jquery.com/Plugins/ValmovieIdation/rules
 	rules: function(command, argument) {
 		/// <summary>
-		/// Return the validations rules for the first selected element.
+		/// Return the valmovieIdations rules for the first selected element.
 		/// </summary>
 		/// <param name="command" type="String">
 		/// Can be either "add" or "remove".
@@ -158,12 +158,12 @@ $.extend($.fn, {
 		var element = this[0];
 		
 		if (command) {
-			var settings = $.data(element.form, 'validator').settings;
+			var settings = $.data(element.form, 'valmovieIdator').settings;
 			var staticRules = settings.rules;
-			var existingRules = $.validator.staticRules(element);
+			var existingRules = $.valmovieIdator.staticRules(element);
 			switch(command) {
 			case "add":
-				$.extend(existingRules, $.validator.normalizeRule(argument));
+				$.extend(existingRules, $.valmovieIdator.normalizeRule(argument));
 				staticRules[element.name] = existingRules;
 				if (argument.messages)
 					settings.messages[element.name] = $.extend( settings.messages[element.name], argument.messages );
@@ -182,13 +182,13 @@ $.extend($.fn, {
 			}
 		}
 		
-		var data = $.validator.normalizeRules(
+		var data = $.valmovieIdator.normalizeRules(
 		$.extend(
 			{},
-			$.validator.metadataRules(element),
-			$.validator.classRules(element),
-			$.validator.attributeRules(element),
-			$.validator.staticRules(element)
+			$.valmovieIdator.metadataRules(element),
+			$.valmovieIdator.classRules(element),
+			$.valmovieIdator.attributeRules(element),
+			$.valmovieIdator.staticRules(element)
 		), element);
 		
 		// make sure required is at front
@@ -204,22 +204,22 @@ $.extend($.fn, {
 
 // Custom selectors
 $.extend($.expr[":"], {
-	// http://docs.jquery.com/Plugins/Validation/blank
+	// http://docs.jquery.com/Plugins/ValmovieIdation/blank
 	blank: function(a) {return !$.trim("" + a.value);},
-	// http://docs.jquery.com/Plugins/Validation/filled
+	// http://docs.jquery.com/Plugins/ValmovieIdation/filled
 	filled: function(a) {return !!$.trim("" + a.value);},
-	// http://docs.jquery.com/Plugins/Validation/unchecked
+	// http://docs.jquery.com/Plugins/ValmovieIdation/unchecked
 	unchecked: function(a) {return !a.checked;}
 });
 
-// constructor for validator
-$.validator = function( options, form ) {
-	this.settings = $.extend( true, {}, $.validator.defaults, options );
+// constructor for valmovieIdator
+$.valmovieIdator = function( options, form ) {
+	this.settings = $.extend( true, {}, $.valmovieIdator.defaults, options );
 	this.currentForm = form;
 	this.init();
 };
 
-$.validator.format = function(source, params) {
+$.valmovieIdator.format = function(source, params) {
 	/// <summary>
 	/// Replaces {n} placeholders with arguments.
 	/// One or more arguments can be passed, in addition to the string template itself, to insert
@@ -237,7 +237,7 @@ $.validator.format = function(source, params) {
 		return function() {
 			var args = $.makeArray(arguments);
 			args.unshift(source);
-			return $.validator.format.apply( this, args );
+			return $.valmovieIdator.format.apply( this, args );
 		};
 	if ( arguments.length > 2 && params.constructor != Array  ) {
 		params = $.makeArray(arguments).slice(1);
@@ -251,16 +251,16 @@ $.validator.format = function(source, params) {
 	return source;
 };
 
-$.extend($.validator, {
+$.extend($.valmovieIdator, {
 	
 	defaults: {
 		messages: {},
 		groups: {},
 		rules: {},
 		errorClass: "error",
-		validClass: "valid",
+		valmovieIdClass: "valmovieId",
 		errorElement: "label",
-		focusInvalid: true,
+		focusInvalmovieId: true,
 		errorContainer: $( [] ),
 		errorLabelContainer: $( [] ),
 		onsubmit: true,
@@ -269,10 +269,10 @@ $.extend($.validator, {
 		onfocusin: function(element) {
 			this.lastActive = element;
 				
-			// hide error label and remove error class on focus if enabled
+			// hmovieIde error label and remove error class on focus if enabled
 			if ( this.settings.focusCleanup && !this.blockFocusCleanup ) {
-				this.settings.unhighlight && this.settings.unhighlight.call( this, element, this.settings.errorClass, this.settings.validClass );
-				this.addWrapper(this.errorsFor(element)).hide();
+				this.settings.unhighlight && this.settings.unhighlight.call( this, element, this.settings.errorClass, this.settings.valmovieIdClass );
+				this.addWrapper(this.errorsFor(element)).hmovieIde();
 			}
 		},
 		onfocusout: function(element) {
@@ -293,45 +293,45 @@ $.extend($.validator, {
 			else if (element.parentNode.name in this.submitted)
 				this.element(element.parentNode);
 		},
-		highlight: function( element, errorClass, validClass ) {
-			$(element).addClass(errorClass).removeClass(validClass);
+		highlight: function( element, errorClass, valmovieIdClass ) {
+			$(element).addClass(errorClass).removeClass(valmovieIdClass);
 		},
-		unhighlight: function( element, errorClass, validClass ) {
-			$(element).removeClass(errorClass).addClass(validClass);
+		unhighlight: function( element, errorClass, valmovieIdClass ) {
+			$(element).removeClass(errorClass).addClass(valmovieIdClass);
 		}
 	},
 
-	// http://docs.jquery.com/Plugins/Validation/Validator/setDefaults
+	// http://docs.jquery.com/Plugins/ValmovieIdation/ValmovieIdator/setDefaults
 	setDefaults: function(settings) {
 		/// <summary>
-		/// Modify default settings for validation.
-		/// Accepts everything that Plugins/Validation/validate accepts.
+		/// Modify default settings for valmovieIdation.
+		/// Accepts everything that Plugins/ValmovieIdation/valmovieIdate accepts.
 		/// </summary>
 		/// <param name="settings" type="Options">
 		/// Options to set as default.
 		/// </param>
 
-		$.extend( $.validator.defaults, settings );
+		$.extend( $.valmovieIdator.defaults, settings );
 	},
 
 	messages: {
 		required: "This field is required.",
 		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
-		url: "Please enter a valid URL.",
-		date: "Please enter a valid date.",
-		dateISO: "Please enter a valid date (ISO).",
-		number: "Please enter a valid number.",
+		email: "Please enter a valmovieId email address.",
+		url: "Please enter a valmovieId URL.",
+		date: "Please enter a valmovieId date.",
+		dateISO: "Please enter a valmovieId date (ISO).",
+		number: "Please enter a valmovieId number.",
 		digits: "Please enter only digits.",
-		creditcard: "Please enter a valid credit card number.",
+		creditcard: "Please enter a valmovieId credit card number.",
 		equalTo: "Please enter the same value again.",
-		accept: "Please enter a value with a valid extension.",
-		maxlength: $.validator.format("Please enter no more than {0} characters."),
-		minlength: $.validator.format("Please enter at least {0} characters."),
-		rangelength: $.validator.format("Please enter a value between {0} and {1} characters long."),
-		range: $.validator.format("Please enter a value between {0} and {1}."),
-		max: $.validator.format("Please enter a value less than or equal to {0}."),
-		min: $.validator.format("Please enter a value greater than or equal to {0}.")
+		accept: "Please enter a value with a valmovieId extension.",
+		maxlength: $.valmovieIdator.format("Please enter no more than {0} characters."),
+		minlength: $.valmovieIdator.format("Please enter at least {0} characters."),
+		rangelength: $.valmovieIdator.format("Please enter a value between {0} and {1} characters long."),
+		range: $.valmovieIdator.format("Please enter a value between {0} and {1}."),
+		max: $.valmovieIdator.format("Please enter a value less than or equal to {0}."),
+		min: $.valmovieIdator.format("Please enter a value greater than or equal to {0}.")
 	},
 	
 	autoCreateRanges: false,
@@ -346,7 +346,7 @@ $.extend($.validator, {
 			this.valueCache = {};
 			this.pendingRequest = 0;
 			this.pending = {};
-			this.invalid = {};
+			this.invalmovieId = {};
 			this.reset();
 			
 			var groups = (this.groups = {});
@@ -357,37 +357,37 @@ $.extend($.validator, {
 			});
 			var rules = this.settings.rules;
 			$.each(rules, function(key, value) {
-				rules[key] = $.validator.normalizeRule(value);
+				rules[key] = $.valmovieIdator.normalizeRule(value);
 			});
 			
 			function delegate(event) {
-				var validator = $.data(this[0].form, "validator"),
-					eventType = "on" + event.type.replace(/^validate/, "");
-				validator.settings[eventType] && validator.settings[eventType].call(validator, this[0] );
+				var valmovieIdator = $.data(this[0].form, "valmovieIdator"),
+					eventType = "on" + event.type.replace(/^valmovieIdate/, "");
+				valmovieIdator.settings[eventType] && valmovieIdator.settings[eventType].call(valmovieIdator, this[0] );
 			}
 			$(this.currentForm)
-				.validateDelegate(":text, :password, :file, select, textarea", "focusin focusout keyup", delegate)
-				.validateDelegate(":radio, :checkbox, select, option", "click", delegate);
+				.valmovieIdateDelegate(":text, :password, :file, select, textarea", "focusin focusout keyup", delegate)
+				.valmovieIdateDelegate(":radio, :checkbox, select, option", "click", delegate);
 
-			if (this.settings.invalidHandler)
-				$(this.currentForm).bind("invalid-form.validate", this.settings.invalidHandler);
+			if (this.settings.invalmovieIdHandler)
+				$(this.currentForm).bind("invalmovieId-form.valmovieIdate", this.settings.invalmovieIdHandler);
 		},
 
-		// http://docs.jquery.com/Plugins/Validation/Validator/form
+		// http://docs.jquery.com/Plugins/ValmovieIdation/ValmovieIdator/form
 		form: function() {
 			/// <summary>
-			/// Validates the form, returns true if it is valid, false otherwise.
+			/// ValmovieIdates the form, returns true if it is valmovieId, false otherwise.
 			/// This behaves as a normal submit event, but returns the result.
 			/// </summary>
 			/// <returns type="Boolean" />
 
 			this.checkForm();
 			$.extend(this.submitted, this.errorMap);
-			this.invalid = $.extend({}, this.errorMap);
-			if (!this.valid())
-				$(this.currentForm).triggerHandler("invalid-form", [this]);
+			this.invalmovieId = $.extend({}, this.errorMap);
+			if (!this.valmovieId())
+				$(this.currentForm).triggerHandler("invalmovieId-form", [this]);
 			this.showErrors();
-			return this.valid();
+			return this.valmovieId();
 		},
 		
 		checkForm: function() {
@@ -395,17 +395,17 @@ $.extend($.validator, {
 			for ( var i = 0, elements = (this.currentElements = this.elements()); elements[i]; i++ ) {
 				this.check( elements[i] );
 			}
-			return this.valid(); 
+			return this.valmovieId(); 
 		},
 		
-		// http://docs.jquery.com/Plugins/Validation/Validator/element
+		// http://docs.jquery.com/Plugins/ValmovieIdation/ValmovieIdator/element
 		element: function( element ) {
 			/// <summary>
-			/// Validates a single element, returns true if it is valid, false otherwise.
-			/// This behaves as validation on blur or keyup, but returns the result.
+			/// ValmovieIdates a single element, returns true if it is valmovieId, false otherwise.
+			/// This behaves as valmovieIdation on blur or keyup, but returns the result.
 			/// </summary>
 			/// <param name="element" type="Selector">
-			/// An element to validate, must be inside the validated form.
+			/// An element to valmovieIdate, must be insmovieIde the valmovieIdated form.
 			/// </param>
 			/// <returns type="Boolean" />
 
@@ -415,19 +415,19 @@ $.extend($.validator, {
 			this.currentElements = $(element);
 			var result = this.check( element );
 			if ( result ) {
-				delete this.invalid[element.name];
+				delete this.invalmovieId[element.name];
 			} else {
-				this.invalid[element.name] = true;
+				this.invalmovieId[element.name] = true;
 			}
-			if ( !this.numberOfInvalids() ) {
-				// Hide error containers on last error
-				this.toHide = this.toHide.add( this.containers );
+			if ( !this.numberOfInvalmovieIds() ) {
+				// HmovieIde error containers on last error
+				this.toHmovieIde = this.toHmovieIde.add( this.containers );
 			}
 			this.showErrors();
 			return result;
 		},
 
-		// http://docs.jquery.com/Plugins/Validation/Validator/showErrors
+		// http://docs.jquery.com/Plugins/ValmovieIdation/ValmovieIdator/showErrors
 		showErrors: function(errors) {
 			/// <summary>
 			/// Show the specified messages.
@@ -457,33 +457,33 @@ $.extend($.validator, {
 				: this.defaultShowErrors();
 		},
 		
-		// http://docs.jquery.com/Plugins/Validation/Validator/resetForm
+		// http://docs.jquery.com/Plugins/ValmovieIdation/ValmovieIdator/resetForm
 		resetForm: function() {
 			/// <summary>
 			/// Resets the controlled form.
 			/// Resets input fields to their original value (requires form plugin), removes classes
-			/// indicating invalid elements and hides error messages.
+			/// indicating invalmovieId elements and hmovieIdes error messages.
 			/// </summary>
 
 			if ( $.fn.resetForm )
 				$( this.currentForm ).resetForm();
 			this.submitted = {};
 			this.prepareForm();
-			this.hideErrors();
+			this.hmovieIdeErrors();
 			this.elements().removeClass( this.settings.errorClass );
 		},
 		
-		numberOfInvalids: function() {
+		numberOfInvalmovieIds: function() {
 			/// <summary>
-			/// Returns the number of invalid fields.
-			/// This depends on the internal validator state. It covers all fields only after
-			/// validating the complete form (on submit or via $("form").valid()). After validating
+			/// Returns the number of invalmovieId fields.
+			/// This depends on the internal valmovieIdator state. It covers all fields only after
+			/// valmovieIdating the complete form (on submit or via $("form").valmovieId()). After valmovieIdating
 			/// a single element, only that element is counted. Most useful in combination with the
-			/// invalidHandler-option.
+			/// invalmovieIdHandler-option.
 			/// </summary>
 			/// <returns type="Number" />
 
-			return this.objectLength(this.invalid);
+			return this.objectLength(this.invalmovieId);
 		},
 		
 		objectLength: function( obj ) {
@@ -493,11 +493,11 @@ $.extend($.validator, {
 			return count;
 		},
 		
-		hideErrors: function() {
-			this.addWrapper( this.toHide ).hide();
+		hmovieIdeErrors: function() {
+			this.addWrapper( this.toHmovieIde ).hmovieIde();
 		},
 		
-		valid: function() {
+		valmovieId: function() {
 			return this.size() == 0;
 		},
 		
@@ -505,8 +505,8 @@ $.extend($.validator, {
 			return this.errorList.length;
 		},
 		
-		focusInvalid: function() {
-			if( this.settings.focusInvalid ) {
+		focusInvalmovieId: function() {
+			if( this.settings.focusInvalmovieId ) {
 				try {
 					$(this.findLastActive() || this.errorList.length && this.errorList[0].element || [])
 					.filter(":visible")
@@ -514,7 +514,7 @@ $.extend($.validator, {
 					// manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
 					.trigger("focusin");
 				} catch(e) {
-					// ignore IE throwing errors when focusing hidden elements
+					// ignore IE throwing errors when focusing hmovieIdden elements
 				}
 			}
 		},
@@ -527,20 +527,20 @@ $.extend($.validator, {
 		},
 		
 		elements: function() {
-			var validator = this,
+			var valmovieIdator = this,
 				rulesCache = {};
 			
-			// select all valid inputs inside the form (no submit or reset buttons)
+			// select all valmovieId inputs insmovieIde the form (no submit or reset buttons)
 			// workaround $Query([]).add until http://dev.jquery.com/ticket/2114 is solved
 			return $([]).add(this.currentForm.elements)
 			.filter(":input")
 			.not(":submit, :reset, :image, [disabled]")
 			.not( this.settings.ignore )
 			.filter(function() {
-				!this.name && validator.settings.debug && window.console && console.error( "%o has no name assigned", this);
+				!this.name && valmovieIdator.settings.debug && window.console && console.error( "%o has no name assigned", this);
 			
 				// select only the first element for each name, and only those with rules specified
-				if ( this.name in rulesCache || !validator.objectLength($(this).rules()) )
+				if ( this.name in rulesCache || !valmovieIdator.objectLength($(this).rules()) )
 					return false;
 				
 				rulesCache[this.name] = true;
@@ -561,24 +561,24 @@ $.extend($.validator, {
 			this.errorList = [];
 			this.errorMap = {};
 			this.toShow = $([]);
-			this.toHide = $([]);
+			this.toHmovieIde = $([]);
 			this.currentElements = $([]);
 		},
 		
 		prepareForm: function() {
 			this.reset();
-			this.toHide = this.errors().add( this.containers );
+			this.toHmovieIde = this.errors().add( this.containers );
 		},
 		
 		prepareElement: function( element ) {
 			this.reset();
-			this.toHide = this.errorsFor(element);
+			this.toHmovieIde = this.errorsFor(element);
 		},
 	
 		check: function( element ) {
 			element = this.clean( element );
 			
-			// if radio/checkbox, validate first element in group instead
+			// if radio/checkbox, valmovieIdate first element in group instead
 			if (this.checkable(element)) {
 			    element = this.findByName(element.name).not(this.settings.ignore)[0];
 			}
@@ -588,10 +588,10 @@ $.extend($.validator, {
 			for (var method in rules) {
 				var rule = { method: method, parameters: rules[method] };
 				try {
-					var result = $.validator.methods[method].call( this, element.value.replace(/\r/g, ""), element, rule.parameters );
+					var result = $.valmovieIdator.methods[method].call( this, element.value.replace(/\r/g, ""), element, rule.parameters );
 					
-					// if a method indicates that the field is optional and therefore valid,
-					// don't mark it as valid when there are no other rules
+					// if a method indicates that the field is optional and therefore valmovieId,
+					// don't mark it as valmovieId when there are no other rules
 					if ( result == "dependency-mismatch" ) {
 						dependencyMismatch = true;
 						continue;
@@ -599,7 +599,7 @@ $.extend($.validator, {
 					dependencyMismatch = false;
 					
 					if ( result == "pending" ) {
-						this.toHide = this.toHide.not( this.errorsFor(element) );
+						this.toHmovieIde = this.toHmovieIde.not( this.errorsFor(element) );
 						return;
 					}
 					
@@ -608,7 +608,7 @@ $.extend($.validator, {
 						return false;
 					}
 				} catch(e) {
-					this.settings.debug && window.console && console.log("exception occured when checking element " + element.id
+					this.settings.debug && window.console && console.log("exception occured when checking element " + element.movieId
 						 + ", check the '" + rule.method + "' method", e);
 					throw e;
 				}
@@ -620,7 +620,7 @@ $.extend($.validator, {
 			return true;
 		},
 		
-		// return the custom message for the given element and validation method
+		// return the custom message for the given element and valmovieIdation method
 		// specified in the element's "messages" metadata
 		customMetaMessage: function(element, method) {
 			if (!$.metadata)
@@ -633,7 +633,7 @@ $.extend($.validator, {
 			return meta && meta.messages && meta.messages[method];
 		},
 		
-		// return the custom message for the given element name and validation method
+		// return the custom message for the given element name and valmovieIdation method
 		customMessage: function( name, method ) {
 			var m = this.settings.messages[name];
 			return m && (m.constructor == String
@@ -656,7 +656,7 @@ $.extend($.validator, {
 				this.customMetaMessage( element, method ),
 				// title is never undefined, so handle empty string as undefined
 				!this.settings.ignoreTitle && element.title || undefined,
-				$.validator.messages[method],
+				$.valmovieIdator.messages[method],
 				"<strong>Warning: No message defined for " + element.name + "</strong>"
 			);
 		},
@@ -687,7 +687,7 @@ $.extend($.validator, {
 		defaultShowErrors: function() {
 			for ( var i = 0; this.errorList[i]; i++ ) {
 				var error = this.errorList[i];
-				this.settings.highlight && this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass );
+				this.settings.highlight && this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.valmovieIdClass );
 				this.showLabel( error.element, error.message );
 			}
 			if( this.errorList.length ) {
@@ -699,20 +699,20 @@ $.extend($.validator, {
 				}
 			}
 			if (this.settings.unhighlight) {
-				for ( var i = 0, elements = this.validElements(); elements[i]; i++ ) {
-					this.settings.unhighlight.call( this, elements[i], this.settings.errorClass, this.settings.validClass );
+				for ( var i = 0, elements = this.valmovieIdElements(); elements[i]; i++ ) {
+					this.settings.unhighlight.call( this, elements[i], this.settings.errorClass, this.settings.valmovieIdClass );
 				}
 			}
-			this.toHide = this.toHide.not( this.toShow );
-			this.hideErrors();
+			this.toHmovieIde = this.toHmovieIde.not( this.toShow );
+			this.hmovieIdeErrors();
 			this.addWrapper( this.toShow ).show();
 		},
 		
-		validElements: function() {
-			return this.currentElements.not(this.invalidElements());
+		valmovieIdElements: function() {
+			return this.currentElements.not(this.invalmovieIdElements());
 		},
 		
-		invalidElements: function() {
+		invalmovieIdElements: function() {
 			return $(this.errorList).map(function() {
 				return this.element;
 			});
@@ -729,13 +729,13 @@ $.extend($.validator, {
 			} else {
 				// create label
 				label = $("<" + this.settings.errorElement + "/>")
-					.attr({"for":  this.idOrName(element), generated: true})
+					.attr({"for":  this.movieIdOrName(element), generated: true})
 					.addClass(this.settings.errorClass)
 					.html(message || "");
 				if ( this.settings.wrapper ) {
 					// make sure the element is visible, even in IE
 					// actually showing the wrapped element is handled elsewhere
-					label = label.hide().show().wrap("<" + this.settings.wrapper + "/>").parent();
+					label = label.hmovieIde().show().wrap("<" + this.settings.wrapper + "/>").parent();
 				}
 				if ( !this.labelContainer.append(label).length )
 					this.settings.errorPlacement
@@ -752,14 +752,14 @@ $.extend($.validator, {
 		},
 		
 		errorsFor: function(element) {
-			var name = this.idOrName(element);
+			var name = this.movieIdOrName(element);
     		return this.errors().filter(function() {
 				return $(this).attr('for') == name;
 			});
 		},
 		
-		idOrName: function(element) {
-			return this.groups[element.name] || (this.checkable(element) ? element.name : element.id || element.name);
+		movieIdOrName: function(element) {
+			return this.groups[element.name] || (this.checkable(element) ? element.name : element.movieId || element.name);
 		},
 
 		checkable: function( element ) {
@@ -804,7 +804,7 @@ $.extend($.validator, {
 		},
 		
 		optional: function(element) {
-			return !$.validator.methods.required.call(this, $.trim(element.value), element) && "dependency-mismatch";
+			return !$.valmovieIdator.methods.required.call(this, $.trim(element.value), element) && "dependency-mismatch";
 		},
 		
 		startRequest: function(element) {
@@ -814,17 +814,17 @@ $.extend($.validator, {
 			}
 		},
 		
-		stopRequest: function(element, valid) {
+		stopRequest: function(element, valmovieId) {
 			this.pendingRequest--;
 			// sometimes synchronization fails, make sure pendingRequest is never < 0
 			if (this.pendingRequest < 0)
 				this.pendingRequest = 0;
 			delete this.pending[element.name];
-			if ( valid && this.pendingRequest == 0 && this.formSubmitted && this.form() ) {
+			if ( valmovieId && this.pendingRequest == 0 && this.formSubmitted && this.form() ) {
 				$(this.currentForm).submit();
 				this.formSubmitted = false;
-			} else if (!valid && this.pendingRequest == 0 && this.formSubmitted) {
-				$(this.currentForm).triggerHandler("invalid-form", [this]);
+			} else if (!valmovieId && this.pendingRequest == 0 && this.formSubmitted) {
+				$(this.currentForm).triggerHandler("invalmovieId-form", [this]);
 				this.formSubmitted = false;
 			}
 		},
@@ -832,7 +832,7 @@ $.extend($.validator, {
 		previousValue: function(element) {
 			return $.data(element, "previousValue") || $.data(element, "previousValue", {
 				old: null,
-				valid: true,
+				valmovieId: true,
 				message: this.defaultMessage( element, "remote" )
 			});
 		}
@@ -873,8 +873,8 @@ $.extend($.validator, {
 		var rules = {};
 		var classes = $(element).attr('class');
 		classes && $.each(classes.split(' '), function() {
-			if (this in $.validator.classRuleSettings) {
-				$.extend(rules, $.validator.classRuleSettings[this]);
+			if (this in $.valmovieIdator.classRuleSettings) {
+				$.extend(rules, $.valmovieIdator.classRuleSettings[this]);
 			}
 		});
 		return rules;
@@ -884,7 +884,7 @@ $.extend($.validator, {
 		var rules = {};
 		var $element = $(element);
 
-		for (var method in $.validator.methods) {
+		for (var method in $.valmovieIdator.methods) {
 			var value = $element.attr(method);
 			if (value) {
 				rules[method] = value;
@@ -902,7 +902,7 @@ $.extend($.validator, {
 	metadataRules: function(element) {
 		if (!$.metadata) return {};
 		
-		var meta = $.data(element.form, 'validator').settings.meta;
+		var meta = $.data(element.form, 'valmovieIdator').settings.meta;
 		return meta ?
 			$(element).metadata()[meta] :
 			$(element).metadata();
@@ -910,9 +910,9 @@ $.extend($.validator, {
 	
 	staticRules: function(element) {
 		var rules = {};
-		var validator = $.data(element.form, 'validator');
-		if (validator.settings.rules) {
-			rules = $.validator.normalizeRule(validator.settings.rules[element.name]) || {};
+		var valmovieIdator = $.data(element.form, 'valmovieIdator');
+		if (valmovieIdator.settings.rules) {
+			rules = $.valmovieIdator.normalizeRule(valmovieIdator.settings.rules[element.name]) || {};
 		}
 		return rules;
 	},
@@ -960,7 +960,7 @@ $.extend($.validator, {
 			}
 		});
 		
-		if ($.validator.autoCreateRanges) {
+		if ($.valmovieIdator.autoCreateRanges) {
 			// auto-create ranges
 			if (rules.min && rules.max) {
 				rules.range = [rules.min, rules.max];
@@ -994,35 +994,35 @@ $.extend($.validator, {
 		return data;
 	},
 	
-	// http://docs.jquery.com/Plugins/Validation/Validator/addMethod
+	// http://docs.jquery.com/Plugins/ValmovieIdation/ValmovieIdator/addMethod
 	addMethod: function(name, method, message) {
 		/// <summary>
-		/// Add a custom validation method. It must consist of a name (must be a legal javascript 
-		/// identifier), a javascript based function and a default string message.
+		/// Add a custom valmovieIdation method. It must consist of a name (must be a legal javascript 
+		/// movieIdentifier), a javascript based function and a default string message.
 		/// </summary>
 		/// <param name="name" type="String">
-		/// The name of the method, used to identify and referencing it, must be a valid javascript
-		/// identifier
+		/// The name of the method, used to movieIdentify and referencing it, must be a valmovieId javascript
+		/// movieIdentifier
 		/// </param>
 		/// <param name="method" type="Function">
-		/// The actual method implementation, returning true if an element is valid
+		/// The actual method implementation, returning true if an element is valmovieId
 		/// </param>
 		/// <param name="message" type="String" optional="true">
 		/// (Optional) The default message to display for this method. Can be a function created by 
-		/// jQuery.validator.format(value). When undefined, an already existing message is used 
+		/// jQuery.valmovieIdator.format(value). When undefined, an already existing message is used 
 		/// (handy for localization), otherwise the field-specific messages have to be defined.
 		/// </param>
 
-		$.validator.methods[name] = method;
-		$.validator.messages[name] = message != undefined ? message : $.validator.messages[name];
+		$.valmovieIdator.methods[name] = method;
+		$.valmovieIdator.messages[name] = message != undefined ? message : $.valmovieIdator.messages[name];
 		if (method.length < 3) {
-			$.validator.addClassRules(name, $.validator.normalizeRule(name));
+			$.valmovieIdator.addClassRules(name, $.valmovieIdator.normalizeRule(name));
 		}
 	},
 
 	methods: {
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/required
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/required
 		required: function(value, element, param) {
 			// check if dependency is met
 			if ( !this.depend(param, element) )
@@ -1040,7 +1040,7 @@ $.extend($.validator, {
 			}
 		},
 		
-		// http://docs.jquery.com/Plugins/Validation/Methods/remote
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/remote
 		remote: function(value, element, param) {
 			if ( this.optional(element) )
 				return "dependency-mismatch";
@@ -1057,106 +1057,106 @@ $.extend($.validator, {
 				return "pending";
 			}
 			if ( previous.old === value ) {
-				return previous.valid;
+				return previous.valmovieId;
 			}
 
 			previous.old = value;
-			var validator = this;
+			var valmovieIdator = this;
 			this.startRequest(element);
 			var data = {};
 			data[element.name] = value;
 			$.ajax($.extend(true, {
 				url: param,
 				mode: "abort",
-				port: "validate" + element.name,
+				port: "valmovieIdate" + element.name,
 				dataType: "json",
 				data: data,
 				success: function(response) {
-					validator.settings.messages[element.name].remote = previous.originalMessage;
-					var valid = response === true;
-					if ( valid ) {
-						var submitted = validator.formSubmitted;
-						validator.prepareElement(element);
-						validator.formSubmitted = submitted;
-						validator.successList.push(element);
-						validator.showErrors();
+					valmovieIdator.settings.messages[element.name].remote = previous.originalMessage;
+					var valmovieId = response === true;
+					if ( valmovieId ) {
+						var submitted = valmovieIdator.formSubmitted;
+						valmovieIdator.prepareElement(element);
+						valmovieIdator.formSubmitted = submitted;
+						valmovieIdator.successList.push(element);
+						valmovieIdator.showErrors();
 					} else {
 						var errors = {};
-						var message = response || validator.defaultMessage(element, "remote");
+						var message = response || valmovieIdator.defaultMessage(element, "remote");
 						errors[element.name] = previous.message = $.isFunction(message) ? message(value) : message;
-						validator.showErrors(errors);
+						valmovieIdator.showErrors(errors);
 					}
-					previous.valid = valid;
-					validator.stopRequest(element, valid);
+					previous.valmovieId = valmovieId;
+					valmovieIdator.stopRequest(element, valmovieId);
 				}
 			}, param));
 			return "pending";
 		},
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/minlength
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/minlength
 		minlength: function(value, element, param) {
 			return this.optional(element) || this.getLength($.trim(value), element) >= param;
 		},
 		
-		// http://docs.jquery.com/Plugins/Validation/Methods/maxlength
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/maxlength
 		maxlength: function(value, element, param) {
 			return this.optional(element) || this.getLength($.trim(value), element) <= param;
 		},
 		
-		// http://docs.jquery.com/Plugins/Validation/Methods/rangelength
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/rangelength
 		rangelength: function(value, element, param) {
 			var length = this.getLength($.trim(value), element);
 			return this.optional(element) || ( length >= param[0] && length <= param[1] );
 		},
 		
-		// http://docs.jquery.com/Plugins/Validation/Methods/min
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/min
 		min: function( value, element, param ) {
 			return this.optional(element) || value >= param;
 		},
 		
-		// http://docs.jquery.com/Plugins/Validation/Methods/max
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/max
 		max: function( value, element, param ) {
 			return this.optional(element) || value <= param;
 		},
 		
-		// http://docs.jquery.com/Plugins/Validation/Methods/range
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/range
 		range: function( value, element, param ) {
 			return this.optional(element) || ( value >= param[0] && value <= param[1] );
 		},
 		
-		// http://docs.jquery.com/Plugins/Validation/Methods/email
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/email
 		email: function(value, element) {
-			// contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
+			// contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_valmovieIdation/
 			return this.optional(element) || /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(value);
 		},
 	
-		// http://docs.jquery.com/Plugins/Validation/Methods/url
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/url
 		url: function(value, element) {
 			// contributed by Scott Gonzalez: http://projects.scottsplayground.com/iri/
 			return this.optional(element) || /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value);
 		},
         
-		// http://docs.jquery.com/Plugins/Validation/Methods/date
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/date
 		date: function(value, element) {
-			return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
+			return this.optional(element) || !/InvalmovieId|NaN/.test(new Date(value));
 		},
 	
-		// http://docs.jquery.com/Plugins/Validation/Methods/dateISO
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/dateISO
 		dateISO: function(value, element) {
 			return this.optional(element) || /^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}$/.test(value);
 		},
 	
-		// http://docs.jquery.com/Plugins/Validation/Methods/number
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/number
 		number: function(value, element) {
 			return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(value);
 		},
 	
-		// http://docs.jquery.com/Plugins/Validation/Methods/digits
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/digits
 		digits: function(value, element) {
 			return this.optional(element) || /^\d+$/.test(value);
 		},
 		
-		// http://docs.jquery.com/Plugins/Validation/Methods/creditcard
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/creditcard
 		// based on http://en.wikipedia.org/wiki/Luhn
 		creditcard: function(value, element) {
 			if ( this.optional(element) )
@@ -1184,18 +1184,18 @@ $.extend($.validator, {
 			return (nCheck % 10) == 0;
 		},
 		
-		// http://docs.jquery.com/Plugins/Validation/Methods/accept
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/accept
 		accept: function(value, element, param) {
 			param = typeof param == "string" ? param.replace(/,/g, '|') : "png|jpe?g|gif";
 			return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i")); 
 		},
 		
-		// http://docs.jquery.com/Plugins/Validation/Methods/equalTo
+		// http://docs.jquery.com/Plugins/ValmovieIdation/Methods/equalTo
 		equalTo: function(value, element, param) {
-			// bind to the blur event of the target in order to revalidate whenever the target field is updated
-			// TODO find a way to bind the event just once, avoiding the unbind-rebind overhead
-			var target = $(param).unbind(".validate-equalTo").bind("blur.validate-equalTo", function() {
-				$(element).valid();
+			// bind to the blur event of the target in order to revalmovieIdate whenever the target field is updated
+			// TODO find a way to bind the event just once, avomovieIding the unbind-rebind overhead
+			var target = $(param).unbind(".valmovieIdate-equalTo").bind("blur.valmovieIdate-equalTo", function() {
+				$(element).valmovieId();
 			});
 			return value == target.val();
 		}
@@ -1204,8 +1204,8 @@ $.extend($.validator, {
 	
 });
 
-// deprecated, use $.validator.format instead
-$.format = $.validator.format;
+// deprecated, use $.valmovieIdator.format instead
+$.format = $.valmovieIdator.format;
 
 })(jQuery);
 
@@ -1242,13 +1242,13 @@ $.format = $.validator.format;
     }
 })(jQuery);
 
-// provides cross-browser focusin and focusout events
+// provmovieIdes cross-browser focusin and focusout events
 // IE has native support, in other browsers, use event caputuring (neither bubbles)
 
-// provides delegate(type: String, delegate: Selector, handler: Callback) plugin for easier event delegation
+// provmovieIdes delegate(type: String, delegate: Selector, handler: Callback) plugin for easier event delegation
 // handler is only called when $(event.target).is(delegate), in the scope of the jquery-object for event.target 
 ;(function($) {
-	// only implement if not provided by jQuery core (since 1.4)
+	// only implement if not provmovieIded by jQuery core (since 1.4)
 	// TODO verify if jQuery 1.4's implementation is compatible with older jQuery special-event APIs
 	if (!jQuery.event.special.focusin && !jQuery.event.special.focusout && document.addEventListener) {
 		$.each({
@@ -1276,7 +1276,7 @@ $.format = $.validator.format;
 		});
 	};
 	$.extend($.fn, {
-		validateDelegate: function(delegate, type, handler) {
+		valmovieIdateDelegate: function(delegate, type, handler) {
 			return this.bind(type, function(event) {
 				var target = $(event.target);
 				if (target.is(delegate)) {
